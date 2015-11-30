@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var Person1 = {
+        name: 'ljm',
+        getName: function () {
+            return this.name;
+        }
+    };
+    var per1 = Object.create(Person1);
+    var per2 = Object.create(Person1);
+
+    Person1.getName = function(){return 'Person1'}
+    document.write(per1.getName() + "<br />");
+    document.write(per2.getName() + "<br />");
+    per1.getName = function () {
+        return 'per1';
+    }
+    document.write(Person1.getName() + '<br />');
+    document.write(per1.getName() + '<br />');
+    document.write(per2.getName() + '<br />');
+
+    var Person2 = {};
+    Person2.name = 'ljm';
+    Person2.getName = function () {
+        return this.name;
+    };
+    var per2 = Object.create(Person2);
+</script>
+</body>
+</html>

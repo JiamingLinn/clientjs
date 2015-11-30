@@ -1,0 +1,60 @@
+<!--[if IE]>
+
+这段文字只在IE浏览器显示
+
+<![endif]-->
+<style>
+
+#bgcolor{
+	background-color:red !important;
+	background-color:blue;
+}
+
+*+html bgcolor{
+	background-color:green !important;
+}
+
+</style>
+<script>
+var Student = function(){};
+
+Student.prototype.getName=function(){
+	return "haha";
+}
+
+Student.prototype = {
+    verion: "1.0",
+    subclass:'Person'
+}
+
+Student.prototype = {
+    version: '2.0',
+    getVersion: function(){
+        return this.version
+    }
+}
+
+var stu = new Student();
+//document.write(stu.getName());
+    try{
+        new ActiveXObject("shock");
+    }catch(e){
+        document.writeln(e+"<br />");
+    }
+
+</script>
+<div id="bgcolor" width="100px" height="100px">tttttt</div>
+<div>
+    <div>lll</div>
+    <div>222</div>
+    <div id="b">gggggg</div>
+</div>
+<style>
+    #b:before{
+        color: yellow;
+        content: attr(id);
+    }
+    #b::after{
+
+    }
+</style>

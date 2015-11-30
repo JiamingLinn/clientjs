@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="menuDiv">
+        <ul>
+            <li><a href="#" class="mainmenu">Menu one</a> </li>
+            <li class="submenu">
+                <a href="#">Link 1</a>
+                <a href="#">link 2</a>
+                <a href="#">link 3</a>
+            </li>
+        </ul>
+        <ul>
+            <li><a href="#" class="mainmenu">Menu tow</a> </li>
+            <li class="subcmenu">
+                <a href="#">Link 1</a>
+                <a href="#">link 2</a>
+                <a href="#">link 3</a>
+            </li>
+        </ul>
+    </div>
+<script src="/api/js/jquery-min-src.js"></script>
+<script>
+    $(function(){
+        //实现主菜单的鼠标进入事件
+        $('.mainmenu').mouseenter(function(){
+            //停止播放所有特效并隐藏下级菜单
+            $('.submenu').stop(false, true).hide();
+            //获取下级菜单
+            var submenu = $(this).parent().next();
+            //设定子菜单样式
+            submenu.css({
+                "position": 'absolute',
+                "top": $(this).offset().top + $(this).height() + 'px',
+                "left": $(this).offset().left + "px",
+                "zIndex": 1000
+            });
+            //停掉下级菜单其他动画并使其下拉
+            submenu.stop().slideDown(300);
+            submenu.mouseleave(function(){
+                $(this).slideUp(300);
+            })
+        }).mouseleave(function(event){
+            $(this).parent().next().stop().slideUp(300);
+        })
+    })
+</script>
+</body>
+</html>

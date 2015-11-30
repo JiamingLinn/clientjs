@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function func1(callback){
+        var a=1;
+        callback(a);
+    }
+    var myapp = {};
+    myapp.b = 2;
+    myapp.add = function(a){
+        console.dir(this);
+        document.write(this.b + a + '<br />');
+        document.write(this.b + '<br />');//当app.add被回调时，this.b不指向myapp.b
+    }
+    func1(myapp.add);
+    var b = 3;
+    func1(myapp.add);
+</script>
+
+</body>
+</html>

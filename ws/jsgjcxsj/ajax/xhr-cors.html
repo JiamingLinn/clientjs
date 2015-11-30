@@ -1,0 +1,25 @@
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script src="/ws/Utils.js"></script>
+<script charset="" type="application/javascript">
+    var xhr = Utils.ajax.createXHR();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4){document.write(xhr.status)
+            if(xhr.status>=200 && xhr.status<300){
+                console.dir(xhr.responseText);
+                document.write(xhr.responseText);
+            }
+        }
+    };
+    xhr.onerror = function(args){
+        document.writeln(args);
+    }
+    xhr.open("get","https://www.baidu.com");
+    xhr.send(null);
+</script>
+</body>
+</html>

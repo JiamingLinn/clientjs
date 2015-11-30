@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var Student = function(){
+        var age = 23;
+    };
+    Student.prototype.name = "ljm";
+    Student.prototype.getName = function(n){
+        return this.name+this.age+n;
+    }
+
+    var ljm = {
+        name:"lxm",
+        age:22
+    }
+
+    var stu = new Student();
+    document.write(stu.getName.call(ljm,"5722"));
+</script>
+</body>
+</html>

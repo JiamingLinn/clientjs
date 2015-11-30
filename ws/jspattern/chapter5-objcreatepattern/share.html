@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script src="../../Utils.js"></script>
+<script>
+    /**
+     * 原型和私有性
+     */
+    function Gadget(){
+        var name = 'ipod';
+        this.getName = function(){
+            return name;
+        };
+        this.changeName = function(n){
+            name = n;
+        }
+    }
+    Gadget.prototype = (function(){
+        var browser = 'ie';//相当于静态成员
+        return {
+            getBrowser:function(){
+                return browser;
+            },
+            changeBrowser: function(n){
+                browser = n;
+            }
+        }
+    })();
+
+    var g1 = new Gadget();
+    var g2 = new Gadget();
+    Utils.printbr(g1.getBrowser());
+    Utils.printbr(g2.getBrowser());
+    Utils.printbr(g1.getName());
+    Utils.printbr(g2.getName());
+
+    g1.changeBrowser("firfox");
+    g1.changeName("ipad");
+    Utils.printbr(g1.getBrowser());
+    Utils.printbr(g2.getBrowser());
+    Utils.printbr(g1.getName());
+    Utils.printbr(g2.getName());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="../../Utils.js"></script>
+<script>
+    /**
+     * 类式继承方式--临时构造函数
+     */
+    var inherit = function(C ,P){
+        var F = function(){};
+        F.prototype = p.prototype;
+        C.prototype = new F();
+        C.uber = P.prototype;
+        C.prototype.constructor = C;
+    }
+</script>
+</body>
+</html>

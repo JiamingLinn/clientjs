@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    /*------------------------------------------------------------------------------------------------------------------
+    * 伪类继承方式
+    * ----------------------------------------------------------------------------------------------------------------*/
+    var WMammal = function(name){
+        this.name = name;
+    }
+    WMammal.prototype.get_name = function(){
+        return this.name;
+    }
+    WMammal.prototype.says = function(){
+        return this.saying || "";
+    }
+    
+    var WCat = function (name) {
+        this.name = name;
+        this.saying = "meow";
+    }
+    WCat.prototype = new WMammal();
+    WCat.prototype.purr = function(n){
+        var i,s='';
+        for(i =0;i<n;i++){
+            if(s){
+                s += '-';
+            }
+            s += 'r';
+        }
+        return s;
+    }
+    WCat.prototype.get_name = function () {
+        return this.says() + ' ' +this.name + ' ' + this.says();
+    }
+    var wcat = new WCat('wcat');
+    document.write(wcat.says()+'<br />');
+    document.write(wcat.purr(5)+'<br />');
+    document.write(wcat.get_name()+'<br />');
+    //优化伪类继承方式
+    Function.prototype.inherits= function(Parent){
+        this.prototype = new Parent();
+        return this;
+    };
+    Object.prototype.method = function(func_name,func){
+        this.prototype[func_name] = func;
+        return this;
+    }
+
+    var W2Cat = function (name) {
+        this.name = name;
+        this.saying = 'meow2';
+    }       .inherits(WMammal)
+            .method('purr',function(n){
+                var i,s='';
+                for(i =0;i<n;i++){
+                    if(s){
+                        s += '-';
+                    }
+                    s += 'r';
+                }
+                return s;
+            })
+            .method('get_name',function(){
+                return this.says() + ' ' +this.name + ' ' + this.says();
+            });
+    var w2cat = new W2Cat('w2cat');
+    document.write(w2cat.says()+'<br />');
+    document.write(w2cat.purr(5)+'<br />');
+    document.write(w2cat.get_name()+'<br />');
+
+    /*------------------------------------------------------------------------------------------------------------------
+    * 原型继承方式
+    *---------------------------------------------------------------------------------------------------------------- */
+    if(typeof  Object.beget !== 'function'){
+        Object.beget = function(o){
+            var F =function(){};
+            F.prototype = o;
+            return new F();
+        }
+    }
+    var yMammal = {
+        name : 'Herb the Mammal',
+        get_name : function(){
+            return this.name;
+        },
+        says : function(){
+            return this.saying || '';
+        }
+    }
+    var yCat = Object.beget(yMammal);
+    yCat.name = 'Henrietta';
+    yCat.saying = 'meow';
+    yCat.purr = function(n){
+        var i,s='';
+        for(i =0;i<n;i++){
+            if(s){
+                s += '-';
+            }
+            s += 'r';
+        }
+        return s;
+    }
+    yCat.get_name = function(){
+        return this.says() + ' ' +this.name + ' ' + this.says();
+    }
+    document.write(yCat.says()+'<br />');
+    document.write(yCat.purr(5)+'<br />');
+    document.write(yCat.get_name()+'<br />');
+
+    /*------------------------------------------------------------------------------------------------------------------
+    * 函数化方式继承
+    * ----------------------------------------------------------------------------------------------------------------*/
+    var fmamal = function(spec){
+        var that = {};
+        that.get_name = function (){
+            return spec.name;
+        };
+        that.says = function(){
+            return spec.saying || '';
+        }
+        return that;
+    }
+    var fcat = function(spec){
+        spec.saying = spec.saying || '';
+        var that = fmamal(spec);
+        that.purr = function(n){
+            var i,s='';
+            for(i =0;i<n;i++){
+                if(s){
+                    s += '-';
+                }
+                s += 'r';
+            }
+            return s;
+        };
+        that.get_name = function(){
+            return that.says() + ' ' +spec.name + ' ' + that.says();
+        }
+        return that;
+    }
+    var myfcat = fcat({name :'heri'});
+    document.write(myfcat.says()+'<br />');
+    document.write(myfcat.purr(5)+'<br />');
+    document.write(myfcat.get_name()+'<br />');
+    //console.log("fffffffffffffffffffffffffffffffffffffffff");
+ </script>
+</body>
+</html>

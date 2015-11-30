@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var Student = function(){
+        document.write("student");
+    }
+    var Teacher = function(){};
+    Teacher.prototype.constructor = function(){
+        document.write("teacher");
+    }
+
+    var stu = new Student();
+    var te = new Teacher();
+</script>
+
+</body>
+</html>

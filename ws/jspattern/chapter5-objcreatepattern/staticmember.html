@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="../../Utils.js"></script>
+<script>
+    var Gadget = (function(){
+        var constr = function(){
+            var name = "get";       //普通私有成员
+            return {
+                getName: function(){//普通公有成员
+                    name += "1";
+                    return name;
+                }
+            }
+        };
+        var count = 0;              //静态私有成员
+        constr.getCount = function(){//静态公有成员
+            return count++;
+        }
+
+        return constr;
+    })();
+
+    var g1 = new Gadget();
+    var g2 = new Gadget();
+
+    Utils.printbr(Gadget.getCount());
+    Utils.printbr(Gadget.getCount());
+    Utils.printbr(g1.getName());
+    Utils.printbr(g1.getName());
+    Utils.printbr(g2.getName());
+</script>
+</body>
+</html>

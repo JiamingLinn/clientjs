@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script>
+    var Student ={
+        "name":"ljm",
+        "gf":"mns",
+        "random":1
+    };
+    Student.random = undefined;
+
+    for(var p in Student){
+        document.write(p+" ");
+    }
+
+    delete Student.random;
+    document.write(JSON.stringify(Student));
+    document.write(Student.hasOwnProperty("random"));
+    for(var p in Student){
+        document.write(p+" ");
+    }
+
+</script>
+
+</body>
+</html>

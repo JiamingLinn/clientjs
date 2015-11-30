@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="../../Utils.js"></script>
+<script>
+    /**
+     * 类式继承方式--借用构造函数
+     */
+    var Article = function(){      //父类
+        this.tags = ['js', 'css'];
+    }
+
+    function StaticPage(){         //子类，继承了Article
+        Article.call(this);
+    }
+
+    var page = new StaticPage();
+    Utils.printbr(page.tags[0]);
+    Utils.printbr(page.hasOwnProperty("tags"));//与#1的区别
+
+    /**
+     *没有原型链
+     */
+    function Parent(n){
+        this.name = n || 'parent';
+    }
+    Parent.prototype.say = function(){
+        return this.name;
+    }
+
+    function Child(n){
+        Parent.apply(this, arguments);
+    }
+    var kid = new Child('carry');
+    Utils.printbr(kid.name);    //继承了Parent属性
+    Utils.printbr(kid.say());    //没有继承Parent.prototype,   Child.prototype =={}
+
+    /**
+     * 实现多重继承
+     */
+    function Cat(){
+        this.legs = 4;
+        this.say = function(){
+            return "meaowww";
+        };
+    }
+    function Bird(){
+        this.wings = 2;
+        this.fly = true;
+    }
+
+    function CatWings(){
+        Cat.apply(this);
+        Bird.apply(this);
+    }
+    var jane = new CatWings();
+</script>
+</body>
+</html>

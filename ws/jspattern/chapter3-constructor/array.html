@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var a = new Array(3);//当Array构造函数只有一个参数时，它表示数组的长度，而不是第一个元素
+    document.write(a[0]+ '<br />');
+    document.write(a.length + "<br />");
+
+    try {
+        var b = new Array(3.14);//报数组长度错误
+    }catch (e){
+        document.write(e + '<br />');
+    }
+    var b = [3.14];
+    document.write(b[0]+ '<br />');
+
+    document.write(Array.isArray([]) + '<br />');
+    document.write(Object.prototype.toString.call([0]));
+
+    /**
+     * 判断是否为数组
+     *
+     * @class Array
+     * @method isArray
+     * @param {mix} 判断的变量
+     * @return {boolean} 输入变量是否为数组
+     */
+    Array.prototype.isArray = function(o){
+        return Object.prototype.toString.call(o) === '[object Array]';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var eventuality = function(that){
+        var register = {};
+
+        /*
+         * 在一个对象上触发一个事件。该事件可以是一个包含事件名称的字符串，
+         * 或是一个拥有包含事件名称的type属性的对象。
+         * 通过‘on’方法主城的事件处理程序中匹配时间名称的函数将被调用。
+         * */
+        that.fire = function(event){
+            var array,func,handler, i,
+                    type = typeof event==='string'?event:event.type;
+            //如果这个事件存在一组事件处理程序，那么就遍历它们并按顺序依次执行。
+            if(register.hasOwnProperty(type)){
+                array = register[type];
+                for(i=0;i<array.length;i++){
+                    handler = array[i];
+                    //每个处理程序包含一个方法和一组可选的参数。
+                    //如果该方法是一个字符串形式的名字，那么寻找到该函数。
+                    func = handler.method;
+                    if(typeof func ==='string'){
+                        func = this[func];
+                    }
+                    //调用一个处理程序，如果该条目包含参数，那么传递他们过去。否则传递该事件对象
+                    func.apply(this,handler.parameters || [event]);
+                }
+            }
+            return this;
+        }
+
+        /*
+        * 注册一个事件，构造一条处理程序条目，见他插入处理程序数组中，
+        * 如果这种类型的时间还不存在，就构造一个。
+        * */
+        that.on = function(type,method,parameters){
+            var handler = {
+                method:method,
+                parameters:parameters
+            };
+            if(register.hasOwnProperty(type)){
+                register[type].push(handler);
+            }else{
+                register[type] = [handler];
+            }
+            return that;
+        };
+    }
+</script>
+</body>
+</html>

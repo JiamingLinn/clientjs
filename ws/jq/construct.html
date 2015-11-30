@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *jQuery类数组语法的实现
+    **/
+    var aQuery = function(selector){
+        if(!(this instanceof aQuery)){
+            return new aQuery(selector);
+        }
+        var elem = document.getElementById(/[^#].*/.exec(selector)[0]);
+        this.length = 1;
+        this[0] = elem;
+        this.context = document;
+        this.selector = selector;
+        this.get = function (num) {
+            return this[num];
+        }
+        return this;
+    }
+</script>
+</body>
+</html>

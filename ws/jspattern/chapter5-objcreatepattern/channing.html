@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="../../Utils.js"></script>
+<script>
+    /**
+     * 链模式
+     */
+    var obj = {
+        value: 0,
+        increment: function(){
+            this.value++;
+            return this;
+        },
+        add: function(v){
+            this.value += v;
+            return this;
+        },
+        shout: function(){
+            Utils.printbr(this.value);
+            return this;
+        }
+    };
+    obj.shout()
+            .increment()
+            .shout()
+            .add(3)
+            .shout();
+</script>
+</body>
+</html>

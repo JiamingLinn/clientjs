@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var myArr = [];
+    document.write(myArr.length+"<br />");
+
+    //length属性不一定表示该数组元素的个数
+    myArr[100] = true;
+    document.write(myArr.length+"<br />");
+
+    //重新设置length属性，只会把index大于或等于该值的元素删掉
+    myArr.length = 3;
+    myArr[1] = 8
+    for(var i in myArr){
+        document.write(myArr[i]+"<br />");
+    }
+    document.write(myArr[100]+"<br />");
+    document.write(typeof  myArr);//结果是object
+
+    //识别是否数组，但无法识别别的window或frame传来的数组
+//    function is_array(value){
+//        return value && typeof value==='object' && value.constructor ===Array;
+//    }
+
+    //识别数组
+    function is_array(value){
+        return value &&
+                typeof value === 'object' &&
+                typeof  value.length === 'number' &&
+                typeof value.splice === 'function' &&
+                !(value.propertyIsEnumerable('length'));
+    }
+</script>
+
+</body>
+</html>

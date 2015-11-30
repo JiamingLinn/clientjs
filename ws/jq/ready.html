@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    /**
+     *非IE实现ready
+     */
+    jQuery.ready.promise = function(obj){
+        if(!readyList){
+            readyList = jQuery.Deferred();
+            if(document.readyState === "complete"){
+                setTimeout(jQuery.ready);
+            }else {
+                document.addEventListener("DOMContentLoaded",cmopleted, false);
+                window.addEventListener("load", completed, false);
+            }
+        }
+        return readyList.promise(obj);
+    }
+    /**
+     * IE实现ready探测
+     */
+
+    var top = false;
+    try{
+        top = window.frameElement == null && document.documentElement;
+    }catch (e){}
+    //对于IE在非iframe内，通过能否执行doScroll判断DOM是否加载完毕
+    if(top && top.doScroll ){
+        (function doScrollCheck(){
+            if(!jQuery.isReady){
+                try{
+                    top.doScroll("left");
+                }catch (e){
+                    return setTimeout(doScrollCheck, 50);
+                }
+            }
+            //detach all dom ready events
+            detach();
+            //and execute any waiting functions
+            jQuery.ready();
+        })();
+    }
+    /**--------------------------------------------------------------------
+     * 实际实现
+     ---------------------------------------------------------------------*/
+    jQuery = {};
+    jQuery.fn = $.prototype;
+    var readyList;
+    jQuery.fn.ready = function(fn){
+        //add the callback
+        jQuery.ready.promise().done(fn);
+        return this;
+    }
+
+    jQuery.extend({
+        isReady: false,
+        //a couter to track how many items wait for before
+        //the ready event fires
+        readyWait:1,
+
+        //Hold (or release ) the ready event
+        holeReady:function(hold){
+            if (hold) {
+                jQuery.readyWait++;
+            } else {
+              jQuery.ready(true);
+            }
+        },
+
+        //handle when the document is ready
+        ready: function( wait ) {
+            //abort if there are a pending holds or we're already ready
+            if (wait == true ? --jQuery.readyWait : jQuery.isReady){
+                return ;
+            }
+
+            //make sure body exists,
+            if (!document.body) {
+                setTimeout(jQuery.ready);
+            }
+
+            //now we can sure dom is ready
+            jQuery.isReady = true;
+
+            //if a normal dom event fired, decrement, and wait if need be
+            if( wait !== true && --jQuery.readyWait > 0) {
+                return ;
+            }
+
+            //if there are functions bound, to execute
+            readyList.resolveWith(document, [jQuery]);
+
+            //Trigger any bound ready events
+            if ( jQuery.fn.triggerHandler) {
+                jQuery(document).triggerHandler("ready");
+                jQuery(document).off("ready");
+            }
+        }
+    });
+
+    /**
+     * clean-up method for dom ready events
+     */
+    function detach() {
+        if(document.addEventListener) {
+            document.removeEventListener("DOMContentLoaded", completed, false);
+            window.removeEventListener("load", completed, false);
+        } else {
+            document.detachEvent("onreadystatechange", completed);
+            window.detachEvent("onload", completed);
+        }
+    }
+
+    /**
+     * the ready event handler and self cleanup method
+     */
+    function completed() {
+        //readyState ==='complete' is good enough for us to call the dom in oldIE
+        if ( document.addEventListener || event.type === "load" || document.readyState === "complete"){
+            detach();
+            jQuery.ready();
+        }
+    }
+
+    jQuery.ready.promise = function( obj ) {
+        if(!readyList){
+            readyList = jQuery.Deferred();
+            if (document.readyState === "complete"){
+                setTimeout(jQuery.ready);
+            } else if (document.addEventListener) {
+                document.addEventListener("DOMContentLoaded",cmopleted, false);
+                window.addEventListener("load", completed, false);
+            } else {
+                document.attachEvent( "onreadystatechange", completed );
+                // A fallback to window.onload, that will always work
+                window.attachEvent( "onload", completed );
+                // If IE and not a frame
+                // continually check to see if the document is ready
+                var top = false;
+
+                try {
+                    top = window.frameElement == null && document.documentElement;
+                } catch(e) {}
+                if(top && top.doScroll ){
+                    (function doScrollCheck(){
+                        if(!jQuery.isReady){
+                            try{
+                                top.doScroll("left");
+                            }catch (e){
+                                return setTimeout(doScrollCheck, 50);
+                            }
+                        }
+                        //detach all dom ready events
+                        detach();
+                        //and execute any waiting functions
+                        jQuery.ready();
+                    })();
+                }
+            }
+        }
+        return readyList.promise(obj);
+    }
+
+</script>
+
+</body>
+</html>

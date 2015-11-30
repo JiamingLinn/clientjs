@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function Waffle() {
+        this.tasts = 'yummy';
+    }
+    var gt = new Waffle();
+    document.write(typeof gt + "<br />");
+    document.write(gt.tasts + '<br />');
+
+    //如果不用new，将导致函数内的this指向上级（全局对象）
+    var gtt = Waffle();
+    document.write(window.tasts + "<br />");
+    document.write(typeof gtt + "<br />");
+
+    //可以使用that来解决忽略new后所带来的副作用，但缺点是丢失原型链，无法使用Waff.prototype.func的方式扩展
+    function Waff(){
+        var that = {};
+        that.taste = 'yummy';
+        return that;
+    }
+    var waf = new Waff();
+    var waff = Waff();
+
+    //自调用构造函数
+    function Waf(){
+        if(!this instanceof Waf){
+            return new Waf();
+        }
+        this.tastes = 'yummy';
+    }
+    Waf.prototype.wantAnother = true;
+</script>
+</body>
+</html>

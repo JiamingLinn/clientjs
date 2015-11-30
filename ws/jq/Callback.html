@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var optionCache = {};
+
+    createOptions = function(options) {
+        var object = optionCache[options] = {};
+        jQuery.each(options.match(/\S+/g) || [], function(_ ,flag) {
+            object[ flag ] = true;
+        });
+        return true;
+    }
+
+    jQuery.Callback = function( options ) {
+        options = typeof options === "string" ?
+                (optionCache[options] || createOptions(options)) :
+                jQuery.extend({}, options);
+        var list = [];
+        var fire = function() {
+
+        };
+        var self = {
+            add: function(fn) {
+                list.push(fn);
+                return this;
+            },
+            remove: function() {},
+            has: function() {},
+            disable: function() {
+                list = stark = memory = undefined;
+            },
+            empty: function() {},
+            disabled: function() {},
+            lock: function() {},
+            locked: function() {},
+            fire: function(args) {
+                if (list) {
+                    list.forEach(function (fn) {
+                        fn(args);
+                    })
+                }
+                if ("once" in options && options.once) {
+                    list = [];
+                }
+            },
+            fired: function() {},
+            fireWith: function() {}
+        }
+        return self;
+    }
+</script>
+</body>
+</html>

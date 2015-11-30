@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+//    String.method("deentityfy",function(){
+//        var entity = {
+//            qout:'"',
+//            lt:'<',
+//            gt:'>'
+//        }
+//        return function(){
+//            return this.replace(/&[^&;]+;/g,
+//                    function(a,b){
+//                        var r = entity[b];
+//                        return typeof r ==="string"?r:a;
+//                    }
+//            );
+//        };
+//    }());
+    String.prototype.deentityfy = function(){
+        var entity = {
+            qout:'"',
+            lt:'<',
+            gt:'>'
+        }
+        return function(){
+            return this.replace(/&[^&;]+;/g,
+                    function(a,b){
+                        var r = entity[b];
+                        return typeof r ==="string"?r:a;
+                    }
+            );
+        };
+    }()
+
+    document.write("&quot;&nbsp;".deentityfy())
+</script>
+</body>
+</html>

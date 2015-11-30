@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var func = function(){
+        document.write('func <br />')
+        func = function(){//改变自己
+            document.write('func changed <br />')
+        }
+    }
+    func.uid = 110;
+    document.write(func.uid + ' <br />')
+    func();
+    func();
+    document.write(func.uid + ' <br />');//缺点是但func重定义后，uid也会消失
+</script>
+</body>
+</html>

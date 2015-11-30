@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="../../Utils.js"></script>
+<script>
+    /**
+     * 构造函数中声明私有成员
+     */
+    function Student () {
+        var name = 'lin';            //私有成员
+        this.getName = function(){  //公有成员
+            return name;
+        }
+    }
+
+    var stu = new Student();
+    Utils.printbr(stu.name);
+    Utils.printbr(stu.getName());
+
+    /**
+     * 对象字面量与私有成员
+     */
+    var teacher;
+    (function(){
+        var name = 'cls';
+        teacher = {
+            getName: function(){
+                return name;
+            }
+        }
+    })();
+    Utils.printbr(teacher.getName());
+
+    /**
+     * 模块模式
+     */
+    var Person = (function(){
+        var name = 'ren';
+        return {
+            getName: function(){
+                return name;
+            }
+        }
+    })();
+
+
+</script>
+
+</body>
+</html>

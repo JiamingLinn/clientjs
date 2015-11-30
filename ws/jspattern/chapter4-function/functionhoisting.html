@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function bar(){document.write('global bar <br />')};
+    function foo(){document.write('global foo <br />')};
+    function func(){
+        document.write(typeof bar + '<br />');//函数被提升，调用的是func.bar
+        document.write(typeof foo + ' <br />');//变量的声明被提升，但并没有赋值，因此foo是undefined
+        bar();
+        try{
+            foo();
+        }catch (e){
+            document.write(e+ '<br />')
+        }
+        function bar (){
+            document.write('func.bar <br />')
+        }
+        var foo = function(){
+            document.write('func.foo <br />')
+        }
+    }
+    func();
+</script>
+
+</body>
+</html>
