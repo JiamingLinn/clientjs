@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Controller</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.3.9/angular.min.js"></script>
+</head>
+<body ng-app="my">
+    <div ng-controller="ParentCtrl">
+        <h1>{{parent}}</h1>
+        <div ng-controller="SonCtrl">{{son}}</div>
+    </div>
+    <script>
+        angular.module( "my", [] )
+                .controller( "ParentCtrl", function ( $scope ) {
+                    $scope.parent = "zy";
+                })
+                .controller( "SonCtrl", function ( $scope ) {
+                    //$scope 继承了上级$scope的变量
+                    $scope.son = $scope.parent + "'s son";
+                })
+    </script>
+</body>
+</html>

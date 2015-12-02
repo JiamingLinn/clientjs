@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>expression</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.3.9/angular.min.js"></script>
+</head>
+<body ng-app="my">
+<div ng-controller="ParentCtrl">
+    {{parent}}
+    <!-- expression 1 -->
+    <h1>{{80*40}}</h1>
+    <!-- expression 2 illegal -->
+    <h1>{{alert("fff")}}</h1>>
+    <input type="text" ng-model="valExp" />
+    <h5>{{newVal}}</h5>
+    <h5>{{oldVal}}</h5>
+    {{val}}
+</div>
+<script>
+    angular.module( "my", [] )
+            .controller( "ParentCtrl", function ( $scope, $parse ) {
+                $scope.parent = "zy";
+                $scope.$watch( "valExp", function( newVal, oldVal, scope ) {
+                    $scope.newVal = newVal;
+                    $scope.oldVal = oldVal;
+                    if ( newVal != oldVal ) {
+                        var func = $parse( newVal );
+                        $scope.val = func( scope );
+                    }
+                })
+                $scope.val = $scope.$watch("newValue")
+            });
+</script>
+</body>
+</html>

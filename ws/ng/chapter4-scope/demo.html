@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.3.9/angular.min.js"></script>
+</head>
+<!--声明angular编译作用范围-->
+<body ng-app="myapp">
+    <h1>{{name}}</h1>
+    <div ng-controller="MyCtrl">{{helloString}}</div>
+<script>
+    angular.module("myapp",[])
+            .controller("MyCtrl", function ( $scope ) {
+                //$scope 是 local scope
+                $scope.helloString = "hello world";
+            })
+            .run(function ( $rootScope ) {
+                //$rootScope是根作用域，与ng-app同级
+                $rootScope.name = "ljm";
+            });
+    /**
+     * 作用域周期：
+     * creating scope (by $injector)
+     *
+     * linking scope to view
+     *
+     * updating
+     *
+     * destory
+     */
+</script>
+</body>
+</html>

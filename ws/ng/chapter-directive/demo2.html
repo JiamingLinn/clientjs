@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+    <script src="/nodejs/others/bower_components/angular/angular.js"></script>
+</head>
+<body ng-app="my">
+<my-dir my-url="{{'http://' + 'google.com'}}" my-text="Click me to go to Google"></my-dir>
+<script>
+    angular.module( "my", [] )
+            .directive( "myDir", function() {
+                return {
+                    // E: element; A: attribute; C: class; M: 注释
+                    "restrict": "E",
+                    //编译后<my-dir>标签是否去除
+                    "replace": true,
+                    "scope": {
+                        "myUrl": "@someAttr",
+                        "myText": "@"
+                    },
+                    //ng-model中的myUrl与指令中scope中的myUrl冲突
+                    "template": "<input type='text' ng-model='myUrl'><a href=\"{{myUrl}}\">" +
+                    "{{myText}}</a>"
+                };
+            })
+</script>`
+</body>
