@@ -7,11 +7,11 @@
 <body>
 <script>
     var optionCache = {};
-
     createOptions = function(options) {
         var object = optionCache[options] = {};
         jQuery.each(options.match(/\S+/g) || [], function(_ ,flag) {
             object[ flag ] = true;
+
         });
         return true;
     }

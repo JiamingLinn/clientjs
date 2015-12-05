@@ -8,7 +8,7 @@
 			});
 		};
 	/**
-	 * 观察者类
+	 * 观察者类f
 	 * list: 订阅者
 	 * stack： 要发布的消息栈
 	 * 可选模式：
@@ -52,7 +52,7 @@
 				firing = false;
 				if (list) {
 					if (stack) {
-						// not once 
+						// not once
 						if (stack.length) {
 							fire(stack.shift());
 						}
@@ -85,7 +85,7 @@
 								};
 							});
 						})(arguments);
-						//if the Callback object is firing, 
+						//if the Callback object is firing,
 						//then switch the callbacks length
 						if (firing) {
 							firingLength = list.length;

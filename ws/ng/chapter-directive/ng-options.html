@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内置指令</title>
+    <script src="/nodejs/others/bower_components/angular/angular.js"></script>
+</head>
+<body ng-app="my">
+<div ng-controller="cityCtrl">
+    <select ng-model="city" ng-options="city.name for city in cities">
+        <option value=""></option>
+    </select>
+</div>
+<script>
+    angular.module( "my", [] )
+            .controller( "cityCtrl", [ "$scope", function( $scope ) {
+                $scope.cities =[
+                    {name:"GUANGZHOU"},
+                    {name:"SHENZHEN"}
+                ]
+            }]);
+</script>`
+</body>
+</html>

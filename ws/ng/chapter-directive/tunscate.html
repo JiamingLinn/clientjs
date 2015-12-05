@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <<script src="/nodejs/others/bower_components/angular/angular.js"></script>
+</head>
+<body ng-app="my">
+<div sidebox title="Links">
+    <ul>
+        <li>First Link</li>
+        <li>Second Link</li>
+    </ul>
+</div>
+<script>
+    angular.module( "my", [] )
+            .directive( "sidebox", function () {
+                return {
+                    restrict: "EA",
+                    scope: {
+                        title: "@"
+                    },
+                    replace: true,
+                    transclude: true,
+                    template: '<div class=\'sidebox\'>' +
+                        '<div class=\'content\'>' +
+                        '<h2 class=\'header\'>{{title}}</h2>' +
+                        '<ng-transclude />' +
+                        '</div> ' +
+                        '</div>'
+                }
+            })
+</script>
+</body>
+</html>
